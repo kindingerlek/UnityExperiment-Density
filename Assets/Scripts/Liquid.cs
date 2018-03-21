@@ -129,7 +129,7 @@ public class Liquid : MonoBehaviour {
         {
             Vector3 point = submergedObjs[other].voxels[j];
 
-            if(VoxelizedObject.IsVoxelInside(point, collider,ref bounds))
+            if(point.y <= transform.parent.position.y + transform.parent.localScale.y)
                 submergedVoxels++;
         }
 

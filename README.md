@@ -29,7 +29,7 @@ because it's more comfortable to me program in C # with Unity Framework.
 Some of my difficulties in this project:
  Despite the bouyancy formula is easy to read:
 
- ```
+```
     Bforce = d * Vd * g;
 
     /* Where:
@@ -37,16 +37,14 @@ Some of my difficulties in this project:
     * d = dencity of liquid;
     * Vd = is the displaced Volume;
     * g = gravity acceleration;
-    */
- ```
+    */
+```
 
  Measure how much volume was displaced is not a trivial task. To solve this, two
  solutions came to my mind:
 
- 1. Just static cubes are allowed: In this case just take the Y position of cube and water
- level, and subtract them.
- 2. Any kind 3D model are allowed: Make the 3D model as voxels, and count how much of them
- is inside of water. After that, multiply by voxel's volume and voila.
+1. **Just static cubes are allowed:** In this case just take the Y position of cube and water level, and subtract them.
+2. **Any kind 3D model are allowed:** Make the 3D model as voxels, and count how much of them is inside of water. After that, multiply by voxel's volume and voila.
 
  Without a thinking twice, I chose the second approach. The problems with this method are:
  - Fixed size of voxel, like I did, is a huge problem. Very tiny object will be

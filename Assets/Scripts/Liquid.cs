@@ -27,6 +27,8 @@ public class Liquid : MonoBehaviour {
 
     private Dictionary<Rigidbody, SubMergedObject> submergedObjs = new Dictionary<Rigidbody, SubMergedObject>();
 
+    private float totalVoxelSubmerge;
+    private Vector3 originalSize;
 
 
     [System.Serializable]
@@ -41,11 +43,19 @@ public class Liquid : MonoBehaviour {
     {
         rigidbody = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
+
+        originalSize = transform.parent.localScale;
     }
 
     private void FixedUpdate()
     {
-        rigidbody.mass = density * transform.localScale.x * transform.localScale.y * transform.localScale.z * 1000f;
+        float Vfd = totalVoxelSubmerge * Mathf.Pow(voxelSize, 3);
+        Vector3 newScale = originalSize;
+        newScale.y = originalSize.y + (Vfd / (originalSize.x * originalSize.z));
+
+        transform.parent.localScale = Vector3.Lerp(transform.parent.localScale, newScale,10 * Time.fixedDeltaTime);
+
+        rigidbody.mass = density * originalSize.x * originalSize.y * originalSize.z * 1000f;
 
         PushAll();
 
@@ -102,6 +112,8 @@ public class Liquid : MonoBehaviour {
 
     void PushAll()
     {
+        totalVoxelSubmerge = 0;
+
        foreach(var keyPair in submergedObjs)
         {
             Push(keyPair.Key);
@@ -120,12 +132,12 @@ public class Liquid : MonoBehaviour {
             if(VoxelizedObject.IsVoxelInside(point, collider,ref bounds))
                 submergedVoxels++;
         }
-        
+
+        totalVoxelSubmerge += submergedVoxels;
+
         float Vfd = submergedVoxels * Mathf.Pow(voxelSize, 3);
         float t = (float) submergedVoxels / (float) submergedObjs[other].voxels.Length;
-
-        Debug.Log(t);
-
+        
         other.drag        = Mathf.Lerp(submergedObjs[other].drag   ,        inLiquidDrag, t);
         other.angularDrag = Mathf.Lerp(submergedObjs[other].angDrag, inLiquidAngularDrag, t);
 

@@ -29,11 +29,6 @@ public class BouyanceObject : MonoBehaviour {
         CalculateAttributes();
     }
 
-    public void Update()
-    {
-        CalculateAttributes();
-    }
-
     public void CalculateAttributes()
     {
         if (autoCalculate == CalculateType.None)
@@ -56,5 +51,32 @@ public class BouyanceObject : MonoBehaviour {
                 transform.localScale = Vector3.one * Mathf.Pow( (rigidbody.mass / density) , 1f/3f);
                 break;
         }
+    }
+
+    public void SetMassVolume(float mass, float volume)
+    {
+        autoCalculate = CalculateType.Density;
+
+        rigidbody = GetComponent<Rigidbody>();
+
+        rigidbody.mass = mass;
+        transform.localScale = Vector3.one * Mathf.Pow(volume, 1f / 3f);
+    }
+
+    public void SetMassDensity(float mass, float density)
+    {
+        autoCalculate = CalculateType.Volume;
+        rigidbody = GetComponent<Rigidbody>();
+
+        this.rigidbody.mass = mass;
+        this.density = density;
+    }
+
+    public void SetVolumeDensity(float volume, float density)
+    {
+        autoCalculate = CalculateType.Mass;
+
+        transform.localScale = Vector3.one * Mathf.Pow(volume, 1f / 3f);
+        this.density = density;
     }
 }

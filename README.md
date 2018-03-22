@@ -24,7 +24,7 @@ Mouse Interation:
 
 This programming exercise was required as a job adimission process, which consist
 recreate one simulation of Phet Colorado using Unity or Unreal. I decided use Unity,
-because it's more comfortable to me program in C # with Unity Framework.
+because it's more comfortable to me program in C# with Unity Framework.
 
 Some of my difficulties in this project:
  Despite the bouyancy formula is easy to read:
@@ -47,7 +47,7 @@ Some of my difficulties in this project:
 2. **Any kind 3D model are allowed:** Make the 3D model as voxels, and count how much of them is inside of water. After that, multiply by voxel's volume and voila.
 
  Without a thinking twice, I chose the second approach. The problems with this method are:
- - Fixed size of voxel, like I did, is a huge problem. Very tiny object will be
+- Fixed size of voxel, like I did, is a huge problem. Very tiny object will be
  considered as just one voxel. And the big 3D element will produce tons of voxel.
 Take a look:
 
@@ -59,11 +59,11 @@ Take a look:
 I should rewrite the code voxel's quantity be static, do not matter how large object is;
 ```
 
- - Large amount of voxel increase the processor overhead by power of 3!
- - Another issue: Once this approximation of the real value, the object never
- will get harmony. Because when you push the object upwards, some voxels
- change status to not submerged, and they will gravity push object downwars. After that,
- the same voxels get submerged status again, making bouyancy push object to up.
+- Large amount of voxel increase the processor overhead by power of 3!
+- Another issue: Once this approximation of the real value, the object never
+will get harmony. Because when you push the object upwards, some voxels
+change status to not submerged, and they will gravity push object downwars. After that,
+the same voxels get submerged status again, making bouyancy push object to up.
 
 ## About
 ### Topics
